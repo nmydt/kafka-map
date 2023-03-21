@@ -4,12 +4,11 @@ on:
   workflow_dispatch:
   push:
     tags:
-      - "v*.*.*"
+      - "v*"
 permissions:
    contents: write
    discussions: write
 jobs:
-
   kafka-map-build:
     name: KafkaMap Build
     runs-on: ubuntu-latest
@@ -42,11 +41,7 @@ jobs:
           tar zcvf kafka-map.tar.gz kafka-map/
       - name: release
         uses: softprops/action-gh-release@v1
+        with:
+          files: kafka-map.tar.gz
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: 'v1.2'
-          release_name: 'v1.2'
-          draft: false
-          prerelease: false
-          files: kafka-map.tar.gz
