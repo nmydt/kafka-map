@@ -6,8 +6,8 @@ on:
     tags:
       - "v*"
 permissions:
-   contents: write
-   discussions: write
+  contents: write
+  discussions: write
 jobs:
   kafka-map-build:
     name: KafkaMap Build
