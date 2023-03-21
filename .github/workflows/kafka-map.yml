@@ -13,9 +13,6 @@ jobs:
     name: KafkaMap Build
     runs-on: ubuntu-latest
     steps:
-      - name: Get version
-        id: get_version
-        run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
       - name: Private Actions Checkout
         uses: actions/checkout@v2.3.4
       - name: node Setup
@@ -39,11 +36,17 @@ jobs:
           cp target/kafka-map*.jar kafka-map/kafka-map.jar
           cp src/main/resources/application.yml kafka-map/application.yml
           tar zcvf kafka-map.tar.gz kafka-map/
-      - name: release
-        uses: softprops/action-gh-release@v1
-        with:
-          files: kafka-map.tar.gz
-          tag_name: ${{ steps.get_version.outputs.VERSION }}
-          release_name: ${{ steps.get_version.outputs.VERSION }}
+          
+      - name: Get version
+        id: get_version
+        run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
+      - name: Create Release
+        uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.get_version.outputs.VERSION }}
+          release_name: ${{ steps.get_version.outputs.VERSION }}
+          files: kafka-map.tar.gz
+          draft: false
+          prerelease: false
