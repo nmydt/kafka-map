@@ -43,5 +43,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: kafka-map.tar.gz
+          tag_name: ${{ steps.get_version.outputs.VERSION }}
+          release_name: ${{ steps.get_version.outputs.VERSION }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
