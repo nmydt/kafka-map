@@ -39,7 +39,12 @@ jobs:
           tar zcvf kafka-map.tar.gz kafka-map/
       - name: release
         uses: softprops/action-gh-release@v1
-        with:
-          files: kafka-map.tar.gz
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.get_version.outputs.VERSION }}
+          release_name: ${{ steps.get_version.outputs.VERSION }}
+          draft: false
+          prerelease: false
+          files: kafka-map.tar.gz
+
