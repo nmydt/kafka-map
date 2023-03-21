@@ -5,8 +5,11 @@ on:
   push:
     tags:
       - "v*.*.*"
-
+permissions:
+   contents: write
+   discussions: write
 jobs:
+
   kafka-map-build:
     name: KafkaMap Build
     runs-on: ubuntu-latest
@@ -47,4 +50,3 @@ jobs:
           draft: false
           prerelease: false
           files: kafka-map.tar.gz
-
