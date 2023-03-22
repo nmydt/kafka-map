@@ -59,4 +59,5 @@ COPY --from=build /app/LICENSE LICENSE
 
 EXPOSE $SERVER_PORT
 
+
 ENTRYPOINT ["/jre/bin/java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "/usr/local/kafka-map/kafka-map.jar", "--server.port=${SERVER_PORT}", "--default.username=${DEFAULT_USERNAME}", "--default.password=${DEFAULT_PASSWORD}"]
